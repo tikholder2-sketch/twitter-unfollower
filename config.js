@@ -14,7 +14,7 @@ const CONFIG = {
     API_BASE_URL: 'https://api.twitter.com/2',
     
     // OAuth 2.0 URLs
-    OAUTH: {
+   OAUTH: {
     AUTHORIZE_URL: 'https://twitter.com/i/oauth2/authorize',
     TOKEN_URL: 'https://api.twitter.com/2/oauth2/token',
 },
@@ -28,12 +28,7 @@ const CONFIG = {
     },
     
     // OAuth 2.0 Scopes
-    SCOPES: [
-        'tweet.read',
-        'users.read', 
-        'follows.read',
-        'follows.write'
-    ].join(' '),
+    SCOPES: 'tweet.read users.read follows.read follows.write'
     
     // Rate Limits (per 15 minutes)
     RATE_LIMITS: {
