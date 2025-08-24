@@ -645,9 +645,8 @@ class TwitterUnfollower {
     }
     
     generateCodeChallenge(verifier) {
-        // Bu basit bir implementation - gerçekte SHA256 hash gerekli
-        return btoa(verifier).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-    }
+    return verifier;
+}
     
     async simulateApiCall(delay = 1000) {
         return new Promise(resolve => setTimeout(resolve, delay));
