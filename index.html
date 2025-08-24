@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Takip Temizleyici</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fab fa-twitter"></i> Twitter Takip Temizleyici</h1>
+            <p>Seni takip etmeyen hesapları bul ve temizle</p>
+        </header>
+        
+        <main id="app">
+            <!-- Giriş Bölümü -->
+            <div id="login-section" class="section">
+                <div class="login-card">
+                    <i class="fab fa-twitter login-icon"></i>
+                    <h2>Hesabını Analiz Et</h2>
+                    <p>Twitter hesabınla giriş yaparak seni takip etmeyen kişileri görebilirsin</p>
+                    <button id="login-btn" class="btn-primary">
+                        <i class="fab fa-twitter"></i>
+                        Twitter ile Giriş Yap
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Ana Bölüm -->
+            <div id="main-section" class="section hidden">
+                <div class="user-info">
+                    <img id="user-avatar" src="" alt="Profil" class="avatar">
+                    <div class="user-details">
+                        <h3 id="user-name"></h3>
+                        <p id="user-handle"></p>
+                        <button id="logout-btn" class="btn-secondary">Çıkış</button>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-user-plus"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="following-count">-</span>
+                            <span class="stat-label">Takip Edilen</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="followers-count">-</span>
+                            <span class="stat-label">Takipçi</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="mutual-count">-</span>
+                            <span class="stat-label">Karşılıklı</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-user-minus"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="non-mutual-count">-</span>
+                            <span class="stat-label">Tek Taraflı</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="analyze-btn" class="btn-primary">
+                        <i class="fas fa-search"></i>
+                        Analiz Et
+                    </button>
+                    <button id="refresh-btn" class="btn-secondary hidden">
+                        <i class="fas fa-sync-alt"></i>
+                        Yenile
+                    </button>
+                </div>
+                
+                <!-- Sonuçlar Bölümü -->
+                <div id="results-section" class="hidden">
+                    <div class="results-header">
+                        <h3><i class="fas fa-list"></i> Seni Takip Etmeyenler</h3>
+                        <div class="filter-controls">
+                            <button id="select-all-btn" class="btn-small">Tümünü Seç</button>
+                            <button id="deselect-all-btn" class="btn-small">Seçimi Kaldır</button>
+                            <button id="unfollow-selected-btn" class="btn-danger" disabled>
+                                <i class="fas fa-user-minus"></i>
+                                Seçilenleri Kaldır (<span id="selected-count">0</span>)
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="non-followers-list" class="user-list">
+                        <!-- Kullanıcı listesi buraya gelecek -->
+                    </div>
+                    
+                    <div id="empty-results" class="hidden">
+                        <div class="empty-state">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Harika!</h3>
+                            <p>Tüm takip ettiğin kişiler seni de takip ediyor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Yükleniyor Bölümü -->
+            <div id="loading-section" class="section hidden">
+                <div class="loading-card">
+                    <div class="spinner"></div>
+                    <h3 id="loading-title">Yükleniyor...</h3>
+                    <p id="loading-text">Veriler analiz ediliyor, lütfen bekleyin.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p class="progress-text"><span id="progress-current">0</span> / <span id="progress-total">0</span></p>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <p>Bu uygulama Twitter API kullanarak çalışır ve verilerinizi saklamaz.</p>
+            <p>Sorunla karşılaştıysanız sayfayı yenileyin.</p>
+        </footer>
+    </div>
+    
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
