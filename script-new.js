@@ -71,7 +71,11 @@ class TwitterUnfollower {
     
     // OAuth 2.0 Login başlatma
     initiateLogin() {
+    const codeVerifier = this.generateCodeVerifier();
+    const codeChallenge = this.generateCodeChallenge(codeVerifier);
     const state = this.generateRandomString(32);
+    
+    localStorage.setItem('code_verifier', codeVerifier);
     localStorage.setItem('oauth_state', state);
     
     const params = new URLSearchParams({
@@ -79,7 +83,9 @@ class TwitterUnfollower {
         client_id: CONFIG.CLIENT_ID,
         redirect_uri: CONFIG.REDIRECT_URI,
         scope: CONFIG.SCOPES,
-        state: state
+        state: state,
+        code_challenge: codeChallenge,
+        code_challenge_method: 'S256'
     });
     
     const authUrl = `${CONFIG.OAUTH.AUTHORIZE_URL}?${params.toString()}`;
