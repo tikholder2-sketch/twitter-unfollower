@@ -131,25 +131,41 @@ class TwitterUnfollower {
     
     // Authorization code'u access token ile değiştir
     async exchangeCodeForToken(code) {
-        this.showLoading('Giriş yapılıyor...', 'Twitter ile kimlik doğrulaması yapılıyor.');
+    this.showLoading('Giriş yapılıyor...', 'Twitter ile kimlik doğrulaması yapılıyor.');
+    
+    try {
+        const response = await fetch('/api/auth?action=token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                code: code,
+                codeVerifier: localStorage.getItem('code_verifier')
+            })
+        });
+
+        const data = await response.json();
         
-        const codeVerifier = localStorage.getItem('code_verifier');
+        if (!response.ok) {
+            throw new Error(data.error || 'Token exchange failed');
+        }
+
+        this.accessToken = data.access_token;
+        this.userData = data.user;
         
-        // ⚠️ DEMO: Gerçek uygulamada bu işlem backend'de yapılmalı
-        // Şimdilik demo token kullanacağız
-        console.log('Authorization code received:', code);
-        console.log('Code verifier:', codeVerifier);
+        localStorage.setItem('access_token', this.accessToken);
+        localStorage.removeItem('code_verifier');
+        localStorage.removeItem('oauth_state');
         
-        // Demo için fake success
-        setTimeout(async () => {
-            this.accessToken = 'demo_access_token_' + Date.now();
-            localStorage.setItem('access_token', this.accessToken);
-            localStorage.removeItem('code_verifier');
-            localStorage.removeItem('oauth_state');
-            
-            await this.fetchUserData();
-        }, 2000);
+        this.saveToStorage();
+        this.showMainSection();
+        
+    } catch (error) {
+        console.error('Token exchange failed:', error);
+        this.showError('Giriş başarısız oldu. Lütfen tekrar deneyin.');
     }
+}
     
     // Kullanıcı verilerini çek
     async fetchUserData() {
