@@ -71,11 +71,24 @@ class TwitterUnfollower {
     
     // OAuth 2.0 Login başlatma
     initiateLogin() {
+    const codeVerifier = this.generateCodeVerifier();
+    const codeChallenge = this.generateCodeChallenge(codeVerifier);
     const state = this.generateRandomString(32);
+    
+    localStorage.setItem('code_verifier', codeVerifier);
     localStorage.setItem('oauth_state', state);
     
-    const authUrl = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${CONFIG.CLIENT_ID}&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=tweet.read%20users.read%20follows.read%20follows.write&state=${state}`;
+    const params = new URLSearchParams({
+        response_type: 'code',
+        client_id: CONFIG.CLIENT_ID,
+        redirect_uri: CONFIG.REDIRECT_URI,
+        scope: CONFIG.SCOPES,
+        state: state,
+        code_challenge: codeChallenge,
+        code_challenge_method: 'S256'
+    });
     
+    const authUrl = `${CONFIG.OAUTH.AUTHORIZE_URL}?${params.toString()}`;
     window.location.href = authUrl;
 }
     
