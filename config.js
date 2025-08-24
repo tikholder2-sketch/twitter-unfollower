@@ -7,7 +7,8 @@ const CONFIG = {
     CLIENT_SECRET: 'YOUR_CLIENT_SECRET_HERE',
     
     // OAuth 2.0 Redirect URI
-    REDIRECT_URI: 'https://tikholder2-sketch.github.io/twitter-unfollower/',
+    REDIRECT_URI: window.location.origin + '/',
+    API_BASE_URL: window.location.origin + '/api',
     
     // Twitter API Base URL
     API_BASE_URL: 'https://api.twitter.com/2',
