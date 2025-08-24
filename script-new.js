@@ -71,29 +71,19 @@ class TwitterUnfollower {
     
     // OAuth 2.0 Login başlatma
     initiateLogin() {
-    // Demo için direkt giriş simülasyonu
-    this.showLoading('Demo modunda giriş yapılıyor...', 'Gerçek OAuth yerine demo verisi yükleniyor.');
+    const state = this.generateRandomString(32);
+    localStorage.setItem('oauth_state', state);
     
-    setTimeout(async () => {
-        // Demo token
-        this.accessToken = 'demo_access_token_' + Date.now();
-        localStorage.setItem('access_token', this.accessToken);
-        
-        // Demo kullanıcı verisi
-        this.userData = {
-            id: '1234567890',
-            name: 'Demo Kullanıcı',
-            username: 'demouser',
-            profile_image_url: 'https://via.placeholder.com/70x70/1da1f2/ffffff?text=DU',
-            public_metrics: {
-                following_count: Math.floor(Math.random() * 500) + 100,
-                followers_count: Math.floor(Math.random() * 300) + 50
-            }
-        };
-        
-        this.saveToStorage();
-        this.showMainSection();
-    }, 2000);
+    const params = new URLSearchParams({
+        response_type: 'code',
+        client_id: CONFIG.CLIENT_ID,
+        redirect_uri: CONFIG.REDIRECT_URI,
+        scope: CONFIG.SCOPES,
+        state: state
+    });
+    
+    const authUrl = `${CONFIG.OAUTH.AUTHORIZE_URL}?${params.toString()}`;
+    window.location.href = authUrl;
 }
     
     // URL'den authorization code kontrolü
