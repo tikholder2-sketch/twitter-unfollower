@@ -1,6 +1,4 @@
 // Twitter API Konfigürasyonu
-// ⚠️ ÖNEMLİ: Bu dosyadaki değerleri kendi API anahtarlarınızla değiştirin
-
 const CONFIG = {
     // Twitter Developer Console'dan aldığınız Client ID
     CLIENT_ID: 'Z0JjZHZkN2xtcng2dG91NFdOcjE6MTpjaQ',
@@ -47,32 +45,10 @@ const CONFIG = {
     // Uygulama Ayarları
     APP_SETTINGS: {
         MAX_RESULTS_PER_PAGE: 100,
-        UNFOLLOW_DELAY: 1000, // 1 saniye
+        UNFOLLOW_DELAY: 1000,
         MAX_BATCH_SIZE: 10
     }
 };
-
-// ⚠️ UYARI: Gerçek uygulamada CLIENT_SECRET frontend'de bulunmamalı!
-// Bu değerler sadece geliştirme amaçlı buraya konmuştur.
-// Production'da backend server kullanılmalıdır.
-
-// Konfigürasyon doğrulama
-if (CONFIG.CLIENT_ID === 'YOUR_CLIENT_ID_HERE') {
-    console.warn('🚨 UYARI: API anahtarlarınızı config.js dosyasında güncelleyin!');
-    console.log('📝 Yapılacaklar:');
-    console.log('1. Twitter Developer Console\'dan Client ID\'nizi alın');
-    console.log('2. config.js dosyasında YOUR_CLIENT_ID_HERE kısmını değiştirin');
-    console.log('3. Redirect URI\'yi Twitter Console\'da ayarlayın');
-}
-
-// Geliştirme modu kontrolü
-const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-if (isDevelopment) {
-    console.log('🔧 Geliştirme modu aktif');
-    // Geliştirme modunda redirect URI'yi localhost olarak ayarla
-    REDIRECT_URI: 'https://tikholder2-sketch.github.io/twitter-unfollower/',
-}
 
 // Export configuration
 window.CONFIG = CONFIG;
