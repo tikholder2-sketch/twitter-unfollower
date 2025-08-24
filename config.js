@@ -71,7 +71,7 @@ const isDevelopment = window.location.hostname === 'localhost' || window.locatio
 if (isDevelopment) {
     console.log('🔧 Geliştirme modu aktif');
     // Geliştirme modunda redirect URI'yi localhost olarak ayarla
-    CONFIG.REDIRECT_URI = 'https://tikholder2-sketch.github.io/twitter-unfollower';
+    REDIRECT_URI: 'https://tikholder2-sketch.github.io/twitter-unfollower/',
 }
 
 // Export configuration
